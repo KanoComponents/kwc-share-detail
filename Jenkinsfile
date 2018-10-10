@@ -35,8 +35,10 @@ pipeline {
         // Install the bower dependencies of the component
         stage('install dependencies') {
             steps {
-                script {
-                    sh "yarn"
+                sshagent(['read-only-github']) {
+                    script {
+                        sh "yarn"
+                    }
                 }
             }
         }
