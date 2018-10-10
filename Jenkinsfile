@@ -1,10 +1,20 @@
 #!groovy
 
+@Library('kanolib') _
+
 pipeline {
     agent {
-        label 'win-test'
+        label 'ubuntu_18.04'
     }
-
+    post {
+        always {
+            junit allowEmptyResults: true, testResults: 'test-results.xml'
+            step([$class: 'CheckStylePublisher', pattern: 'eslint.xml'])
+        }
+        regression {
+            notify_culprits currentBuild.result
+        }
+    }
     stages {
         // pulls down locally the sources for the component
         stage('checkout') {
@@ -12,47 +22,40 @@ pipeline {
                 checkout scm
             }
         }
-
+        stage('tools') {
+            steps {
+                script {
+                    def NODE_PATH = tool name: 'Node 8.11.2', type: 'nodejs'
+                    env.PATH = "${env.PATH}:${NODE_PATH}/bin"
+                    def YARN_PATH = tool name: 'yarn', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+                    env.PATH = "${env.PATH}:${YARN_PATH}/bin"
+                }
+            }
+        }
         // Install the bower dependencies of the component
         stage('install dependencies') {
             steps {
                 script {
-                    sh "bower --version || npm i -g bower"
-                    sh "polymer --version || npm i -g polymer-cli"
-                    sh "npm install -g https://github.com/marcelmeulemans/wct-junit-reporter.git"
-                    sh "rm -rf bower_components"
-                    sh "bower i"
-                    sh "bower update"
+                    sh "yarn"
                 }
             }
         }
-
-        // Lints, and tests the component
+        // Lints, the component
+        stage('checkstyle') {
+            steps {
+                script {
+                    sh "yarn checkstyle-ci"
+                }
+            }
+        }
         stage('test') {
             steps {
                 script {
-                    sh "polymer lint"
-                    sh "polymer test --local chrome"
-                    junit allowEmptyResults: true, testResults: 'wct.xml'
+                    sh "yarn test-ci"
                 }
             }
         }
-
-        stage('documentation') {
-            steps {
-                script {
-                    if (env.BRANCH_NAME == 'master') {
-                        build job: 'Kano/components-doc/master', parameters: [
-                            text(name: 'repoUrl', value: 'https://github.com/KanoComponents/kwc-share-detail'),
-                            text(name: 'componentName', value: 'kwc-share-detail')
-                        ], wait: false
-                    }
-                }
-            }
-        }
-
     }
-
     options {
         buildDiscarder(logRotator(numToKeepStr: '20'))
     }
