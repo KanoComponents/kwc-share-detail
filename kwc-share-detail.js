@@ -26,9 +26,10 @@ import '@kano/kwc-drop-down/kwc-drop-down-item.js';
 import '@kano/kwc-social-comments/kwc-social-comments.js';
 import '@kano/kwc-style/kwc-style.js';
 import '@kano/kwc-icons/kwc-icons.js';
-import { assets } from './assets.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { assets } from './assets.js';
+
 Polymer({
     _template: html`
         <style>
@@ -413,6 +414,9 @@ Polymer({
             :host([tombstone]) .social {
                 opacity: 0.3;
             }
+            .no-margin {
+                margin: 0;
+            }
             @media all and (max-width: 780px) {
                 .share-detail {
                     @apply --layout-vertical;
@@ -524,7 +528,7 @@ Polymer({
                                         <template is="dom-if" if="[[_displayMetaActions]]">
                                             <kwc-drop-down-item class="delete" icon="kwc-ui-icons:rubbish-bin" on-tap="_onDeleteTapped">Delete</kwc-drop-down-item>
                                         </template>
-                                        <kwc-drop-down-item id="drop-down-flag" class\$="flag [[_computeFlagStatus(flags.*)]]" icon="kwc-social-icons:flag" on-tap="_onFlagTapped"></kwc-drop-down-item>
+                                        <kwc-drop-down-item id="drop-down-flag" class\$="flag no-margin [[_computeFlagStatus(flags.*)]]" icon="kwc-social-icons:flag" on-tap="_onFlagTapped"></kwc-drop-down-item>
                                     </kwc-drop-down>
                                 </kwc-share-action>
                             </div>
@@ -609,7 +613,7 @@ Polymer({
            * @type {Object}
            */
         shareData: {
-            type: Object
+            type: Object,
         },
         /**
            * Flag to indicate whether the code display div should be shown.
@@ -617,7 +621,7 @@ Polymer({
            */
         displayCode: {
             type: Boolean,
-            value: false
+            value: false,
         },
         /**
            * Flag to indicate whether the code can be remixed.
@@ -626,7 +630,7 @@ Polymer({
            */
         canRemix: {
             type: Boolean,
-            value: false
+            value: false,
         },
         /**
            * Flag to indicate that the current share attachment is loaded.
@@ -635,7 +639,7 @@ Polymer({
         loaded: {
             type: Boolean,
             value: false,
-            notify: true
+            notify: true,
         },
         /**
            * Computed property that gives a url for the avatar to show for the
@@ -644,7 +648,7 @@ Polymer({
            */
         _avatarUrl: {
             type: String,
-            computed: '_computeAvatarUrl(shareData)'
+            computed: '_computeAvatarUrl(shareData)',
         },
         /**
            * A comments object. Expects a property called `entries` that is to
@@ -672,9 +676,7 @@ Polymer({
            */
         comments: {
             type: Object,
-            value: () => {
-                return {};
-            }
+            value: () => ({}),
         },
         /**
            * A computed flag (based on the comments.page property) to indicate
@@ -683,7 +685,7 @@ Polymer({
            */
         commentLoaderStatus: {
             type: String,
-            computed: '_computeLoaderStatus(comments.*)'
+            computed: '_computeLoaderStatus(comments.*)',
         },
         /**
            * Login in users flags on comments and shares.
@@ -695,10 +697,8 @@ Polymer({
            */
         flags: {
             type: Object,
-            value: () => {
-                return {};
-            },
-            observer: 'updateFlagButton'
+            value: () => ({}),
+            observer: 'updateFlagButton',
         },
         /**
            * From flags, but checks if flags exist
@@ -706,7 +706,7 @@ Polymer({
            */
         commentFlags: {
             type: Array,
-            computed: '_computeCommentFlags(flags.*)'
+            computed: '_computeCommentFlags(flags.*)',
         },
         /**
            * A url to use as the default avatar for the comments component to use
@@ -715,18 +715,16 @@ Polymer({
            */
         _defaultCommentAvatarUrl: {
             type: String,
-            value: () => {
-                return assets.avatar;
-            }
+            value: () => assets.avatar,
         },
         /**
            * Convenience flag to indicate whether the controls for the
-           * share – delete button etc – should be displayed
+           * share – delete button etc - should be displayed
            * @type {Boolean}
            */
         _displayMetaActions: {
             type: Boolean,
-            computed: '_computeMetaActionDisplay(_sharedByUser, _userIsAdmin)'
+            computed: '_computeMetaActionDisplay(_sharedByUser, _userIsAdmin)',
         },
         /**
            * Flag whether the share is featured on not.
@@ -735,7 +733,7 @@ Polymer({
         featured: {
             type: Boolean,
             value: false,
-            reflectToAtrribute: true
+            reflectToAtrribute: true,
         },
         /**
            * Allow the icon to display for a featured share to be set from
@@ -744,7 +742,7 @@ Polymer({
            */
         featuredIconUrl: {
             type: String,
-            value: null
+            value: null,
         },
         /**
            * Use the `featuredIconUrl` or a default icon url.
@@ -752,7 +750,7 @@ Polymer({
            */
         _featuredIconUrl: {
             type: String,
-            computed: '_computeFeaturedIconUrl(featuredIconUrl)'
+            computed: '_computeFeaturedIconUrl(featuredIconUrl)',
         },
         /**
            * Currently authenticated user. An object with the user data
@@ -760,9 +758,7 @@ Polymer({
            */
         currentUser: {
             type: Object,
-            value: () => {
-                return {};
-            }
+            value: () => ({}),
         },
         /**
            * A selector for the subpage to show in the social nav. Currently only
@@ -771,7 +767,7 @@ Polymer({
            */
         _section: {
             type: String,
-            value: 'comments'
+            value: 'comments',
         },
         /**
            * A list of like objects used to calculate the number of likes for the share
@@ -780,9 +776,7 @@ Polymer({
            */
         likes: {
             type: Array,
-            value: () => {
-                return [];
-            }
+            value: () => [],
         },
         /**
            * Computed property that watches the liked list and returns true is
@@ -791,7 +785,7 @@ Polymer({
            */
         liked: {
             type: Boolean,
-            computed: '_computeLiked(likes.*, currentUser)'
+            computed: '_computeLiked(likes.*, currentUser)',
         },
         /**
            * Property to indicate whether we are currently submiting a like request.
@@ -799,7 +793,7 @@ Polymer({
            */
         submitingLike: {
             type: Boolean,
-            value: false
+            value: false,
         },
         /**
            * Flag to indicate if the current share is authored by the current authenticated
@@ -808,7 +802,7 @@ Polymer({
            */
         _sharedByUser: {
             type: Boolean,
-            computed: '_computeSharedByUser(shareData, currentUser)'
+            computed: '_computeSharedByUser(shareData, currentUser)',
         },
         /**
            * Convenience flag to indicate whether the current user
@@ -817,7 +811,7 @@ Polymer({
            */
         _userIsAdmin: {
             type: Boolean,
-            computed: '_computeUserIsAdmin(currentUser.admin_level)'
+            computed: '_computeUserIsAdmin(currentUser.admin_level)',
         },
         /**
            * A map of part ids to labels and links.
@@ -826,27 +820,25 @@ Polymer({
            */
         knownParts: {
             type: Object,
-            value: () => {
-                return {
-                    'motion-sensor': {
-                        label: 'Motion sensor',
-                        link: 'https://kano.me/store/products/motion-sensor-kit'
-                    },
-                    'lightboard': {
-                        label: 'Pixel kit',
-                        link: 'https://kano.me/store/products/pixel-kit'
-                    },
-                    'speaker': {
-                        label: 'Speaker'
-                    },
-                    'gyro-accelerometer': {
-                        label: 'Tilt sensor'
-                    },
-                    'microphone': {
-                        label: 'Microphone'
-                    }
-                };
-            }
+            value: () => ({
+                'motion-sensor': {
+                    label: 'Motion sensor',
+                    link: 'https://kano.me/store/products/motion-sensor-kit',
+                },
+                lightboard: {
+                    label: 'Pixel kit',
+                    link: 'https://kano.me/store/products/pixel-kit',
+                },
+                speaker: {
+                    label: 'Speaker',
+                },
+                'gyro-accelerometer': {
+                    label: 'Tilt sensor',
+                },
+                microphone: {
+                    label: 'Microphone',
+                },
+            }),
         },
         /** An array of related shares (four is the recommended number).
            *
@@ -865,48 +857,43 @@ Polymer({
            * @type {Array}
            */
         related: {
-            type: Array
+            type: Array,
         },
         hideSocial: {
             type: Boolean,
-            value: false
-        }
+            value: false,
+        },
     },
 
     observers: [
-        '_shareDataChanged(shareData.*)'
+        '_shareDataChanged(shareData.*)',
     ],
 
-    /** Computed values*/
+    /** Computed values */
     _computeAvatarUrl(shareData) {
         if (shareData) {
             if (shareData.userAvatar) {
                 return shareData.userAvatar;
-            } else {
-                return assets.avatar;
             }
-        } else {
-            /** No share provided, don't set the avatar */
-            return ''; //Valid URI
+            return assets.avatar;
         }
+        /** No share provided, don't set the avatar */
+        return ''; // Valid URI
     },
 
     _computeLoaderStatus(commentChangeObj) {
         const comments = commentChangeObj.base;
         if (comments) {
             return comments.page ? 'on' : 'off';
-        } else {
-            return 'off';
         }
+        return 'off';
     },
 
     _computeFlagged(flags) {
         if (!flags || !flags.shares || flags.shares.length === 0) {
             return false;
         }
-        return flags.shares.some(flag => {
-            return flag === this.shareData.id;
-        });
+        return flags.shares.some(flag => flag === this.shareData.id);
     },
 
     updateFlagButton() {
@@ -932,7 +919,7 @@ Polymer({
         if (this.featuredIconUrl) {
             return this.featuredIconUrl;
         }
-        return assets.featured || ''; //Valid URI
+        return assets.featured || ''; // Valid URI
     },
 
     _computeFeatureClass(featured) {
@@ -950,14 +937,12 @@ Polymer({
 
     _computeLiked(likeChangeObj, currentUser) {
         if (!likeChangeObj || !currentUser) {
-            return;
+            return false;
         }
         if (Array.isArray(likeChangeObj.base)) {
             const likes = likeChangeObj.base;
             if (likes && likes.length && currentUser) {
-                const liked = likes.some((like) => {
-                    return like.user === currentUser.id;
-                });
+                const liked = likes.some(like => like.user === currentUser.id);
                 return liked;
             }
         } else if (likeChangeObj.base.userLikes.length > 0 && this.shareData && this.shareData.id) {
@@ -993,7 +978,6 @@ Polymer({
         if (this.knownParts &&
             this.knownParts[partId] &&
             this.knownParts[partId].link) {
-
             return this.knownParts[partId].link;
         }
 
@@ -1030,6 +1014,7 @@ Polymer({
         if (!this._getLinkForPartId(product)) {
             return 'inactive';
         }
+        return '';
     },
 
     _shareDataChanged(shareDataChangeObj) {
@@ -1037,6 +1022,7 @@ Polymer({
         if (shareData && shareData.id) {
             return this.toggleClass('loaded', true);
         }
+        return null;
     },
 
     _showComments() {
@@ -1067,9 +1053,8 @@ Polymer({
     _showRemixButton(share, canRemix) {
         if (share && canRemix) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     },
 
     /**
@@ -1107,8 +1092,8 @@ Polymer({
             detail: {
                 action: 'delete',
                 id: this.shareData ? this.shareData.id : null,
-                slug: this.shareData ? this.shareData.slug : null
-            }
+                slug: this.shareData ? this.shareData.slug : null,
+            },
         }));
     },
 
@@ -1117,8 +1102,8 @@ Polymer({
             detail: {
                 action: 'feature',
                 feature: !this.shareData.featured,
-                id: this.shareData.id
-            }
+                id: this.shareData.id,
+            },
         }));
     },
 
@@ -1132,8 +1117,8 @@ Polymer({
                 liked: !this.liked,
                 shareId: this.shareData ? this.shareData.id : null,
                 shareUserId: this.shareData ? this.shareData.userId : null,
-                userId: this.currentUser ? this.currentUser.id : null
-            }
+                userId: this.currentUser ? this.currentUser.id : null,
+            },
         }));
     },
 
@@ -1148,8 +1133,8 @@ Polymer({
                 action: 'remix',
                 shareId: item.id,
                 shareSlug: item.slug,
-                shareType: item.app
-            }
+                shareType: item.app,
+            },
         }));
     },
 
@@ -1163,8 +1148,8 @@ Polymer({
             detail: {
                 action: 'flag',
                 id: this.shareData ? this.shareData.id : null,
-                flag: flagged
-            }
+                flag: flagged,
+            },
         }));
     },
 
@@ -1191,8 +1176,8 @@ Polymer({
         this.dispatchEvent(new CustomEvent('view-user', {
             detail: {
                 id: this.shareData.userId,
-                username: this.shareData.username
-            }
+                username: this.shareData.username,
+            },
         }));
     },
 
@@ -1200,8 +1185,8 @@ Polymer({
         this.dispatchEvent(new CustomEvent('social-share', {
             detail: {
                 action: 'email',
-                share: this.shareData
-            }
+                share: this.shareData,
+            },
         }));
     },
 
@@ -1209,8 +1194,8 @@ Polymer({
         this.dispatchEvent(new CustomEvent('social-share', {
             detail: {
                 action: 'facebook',
-                share: this.shareData
-            }
+                share: this.shareData,
+            },
         }));
     },
 
@@ -1218,55 +1203,53 @@ Polymer({
         this.dispatchEvent(new CustomEvent('social-share', {
             detail: {
                 action: 'twitter',
-                share: this.shareData
-            }
+                share: this.shareData,
+            },
         }));
     },
 
     _handleDeleteComment(e) {
         this.dispatchEvent(new CustomEvent('delete-comment', {
-            detail: e.detail
+            detail: e.detail,
         }));
     },
 
     _handlePostComment(e) {
         this.dispatchEvent(new CustomEvent('post-comment', {
-            detail: e.detail
+            detail: e.detail,
         }));
     },
 
     _handleLoadComment(e) {
         this.dispatchEvent(new CustomEvent('load-comment', {
-            detail: e.detail
+            detail: e.detail,
         }));
     },
 
     _handleFlagComment(e) {
         this.dispatchEvent(new CustomEvent('flag-comment', {
-            detail: e.detail
+            detail: e.detail,
         }));
     },
 
     _handleUnflagComment(e) {
         this.dispatchEvent(new CustomEvent('unflag-comment', {
-            detail: e.detail
+            detail: e.detail,
         }));
     },
 
     _handleViewUser(e) {
         this.dispatchEvent(new CustomEvent('view-user', {
-            detail: e.detail
+            detail: e.detail,
         }));
     },
 
     /** Fire an event upwards for tracking purposes */
     _handleHardwareClick(e) {
-        const linkElement = e.path.find(element => {
-            return element.href !== undefined;
-        }),
-            link = linkElement.href;
+        const linkElement = e.path.find(element => element.href !== undefined);
+        const link = linkElement.href;
         this.dispatchEvent(new CustomEvent('hardware-click', {
-            detail: { link }
+            detail: { link },
         }));
-    }
+    },
 });
