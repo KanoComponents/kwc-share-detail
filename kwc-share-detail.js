@@ -5,11 +5,6 @@ To display details specific to a kano code share.
 
 @demo demo/index.html
 */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
 import '@polymer/polymer/polymer-legacy.js';
 
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
@@ -23,12 +18,13 @@ import '@kano/kwc-share-card/kwc-share-action.js';
 import '@kano/kwc-share-card/kwc-share-cover.js';
 import '@kano/kwc-drop-down/kwc-drop-down.js';
 import '@kano/kwc-drop-down/kwc-drop-down-item.js';
-import '@kano/kwc-social-comments/kwc-social-comments.js';
 import '@kano/kwc-style/kwc-style.js';
 import '@kano/kwc-icons/kwc-icons.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { assets } from './assets.js';
+
+import './kwc-social-comments.js';
 
 Polymer({
     _template: html`

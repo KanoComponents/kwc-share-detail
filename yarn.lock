@@ -231,18 +231,6 @@
     "@polymer/polymer" "^3.0.0"
     "@polymer/prism-element" "^3.0.0-pre.18"
 
-"@kano/kwc-social-comments@^3.0.0-beta.9":
-  version "3.0.0-beta.9"
-  resolved "https://registry.yarnpkg.com/@kano/kwc-social-comments/-/kwc-social-comments-3.0.0-beta.9.tgz#06a13b7524567829000502ce47d502d63a61b4aa"
-  integrity sha512-RSnVe4cnb39K8mDUQITxeRmu7R6DGP261rsbO5U5HCPbvS871RAaAKtpI2KZqQ+rDjg461YsUQrU5DqabTyqGA==
-  dependencies:
-    "@kano/kwc-button" "^3.0.0-beta.3"
-    "@kano/kwc-icons" "^3.0.0-beta.2"
-    "@kano/kwc-style" "^3.0.0-beta.2"
-    "@polymer/iron-autogrow-textarea" "^3.0.0-pre.18"
-    "@polymer/iron-image" "^3.0.0-pre.18"
-    "@polymer/polymer" "^3.0.0"
-
 "@kano/kwc-style@3.0.0-beta.2", "@kano/kwc-style@^3.0.0-beta.1", "@kano/kwc-style@^3.0.0-beta.2":
   version "3.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/@kano/kwc-style/-/kwc-style-3.0.0-beta.2.tgz#350947eefe1278658ae138646e961b13290e9057"
@@ -290,15 +278,14 @@
     blueimp-md5 "^2.10"
     platform "^1.3.5"
 
-"@kano/web-tester@^1.0.0-alpha.3":
-  version "1.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@kano/web-tester/-/web-tester-1.0.0-alpha.3.tgz#29fffdf1db26433db43fde45b42fdcb891ed437c"
-  integrity sha512-JiDTW/UftzjQD8p9BXSzbDFIWa/dZDnmBY0GN3XmMC6NGS5e9WML/+lo2+e7uGLr7m7eynaYQkp6/VcP7Ya/kQ==
+"@kano/web-tester@^1.0.0-alpha.5":
+  version "1.0.0-alpha.5"
+  resolved "https://registry.yarnpkg.com/@kano/web-tester/-/web-tester-1.0.0-alpha.5.tgz#00be725ddc66234759cc54bf42fdcacae911fcb0"
+  integrity sha512-MkSItZgOwbbQnstvygkqvE38Zx9PuhmrtcAyRHKIIMqN+70DXZCT6d/8wy6q4TdWB/aUR0vNeTB/Bd4fn0VRxg==
   dependencies:
     "@kano/es6-resolution" "^1.0.8"
     chai "^4.2.0"
     connect "^3.6.6"
-    eslint-plugin-import "^2.14.0"
     glob "^7.1.3"
     mime "^2.3.1"
     mocha "^5.2.0"
@@ -369,7 +356,7 @@
   dependencies:
     "@polymer/polymer" "^3.0.0"
 
-"@polymer/iron-autogrow-textarea@^3.0.0-pre.18", "@polymer/iron-autogrow-textarea@^3.0.0-pre.26":
+"@polymer/iron-autogrow-textarea@^3.0.0-pre.26", "@polymer/iron-autogrow-textarea@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-autogrow-textarea/-/iron-autogrow-textarea-3.0.1.tgz#0205d9c5ca16f3afd505f41e9037989707d59dce"
   integrity sha512-FgSL7APrOSL9Vu812sBCFlQ17hvnJsBAV2C2e1UAiaHhB+dyfLq8gGdGUpqVWuGJ50q4Y/49QwCNnLf85AdVYA==
@@ -473,7 +460,7 @@
     "@polymer/iron-meta" "^3.0.0-pre.26"
     "@polymer/polymer" "^3.0.0"
 
-"@polymer/iron-icons@^3.0.0-pre.19", "@polymer/iron-icons@^3.0.0-pre.21":
+"@polymer/iron-icons@^3.0.0-pre.19", "@polymer/iron-icons@^3.0.0-pre.21", "@polymer/iron-icons@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@polymer/iron-icons/-/iron-icons-3.0.1.tgz#c1bd31d8483afbdb5422cdc384081e19c9267cfe"
   integrity sha512-xtEI8erH2GIBiF3QxEMyW81XuVjguu6Le5WjEEpX67qd9z7jjmc4T/ke3zRUlnDydex9p8ytcwVpMIKcyvjYAQ==
