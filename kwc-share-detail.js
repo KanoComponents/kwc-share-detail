@@ -561,6 +561,11 @@ Polymer({
                             </div>
                         </div>
                     </template>
+                    <template is="dom-if" if="[[_wandHardwareUsed(shareData.hardware)]]">
+                        <div class="parts-used">
+                            <div class="sidebar-section-header">Hold down the button on your wand to see the spell motions in this creation</div>
+                        </div>
+                    </template>
                     <template is="dom-if" if="[[_anyHardwareUsed(shareData.hardware)]]">
                         <div class="parts-used">
                             <div class="sidebar-section-header">Parts Used</div>
@@ -1079,7 +1084,10 @@ Polymer({
      * @returns {Boolean} When more than one hardware flag is present.
      */
     _anyHardwareUsed(hardware) {
-        return hardware && hardware.length > 0;
+        return hardware && hardware.length > 0 && !hardware.includes('wand');
+    },
+    _wandHardwareUsed(hardware) {
+        return hardware && hardware.includes('wand');
     },
 
     /** Event listeners */
