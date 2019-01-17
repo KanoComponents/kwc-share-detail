@@ -69,10 +69,9 @@ is still being sent, if this is a desired behaviour.
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js';
 import '@polymer/iron-image/iron-image.js';
-import '@polymer/iron-icons/iron-icons.js';
-import '@kano/kwc-icons/kwc-social-icons.js';
-import '@kano/kwc-button/kwc-button.js';
-import '@kano/kwc-style/kwc-style.js';
+import '@kano/styles/typography.js';
+import '@kano/styles/color.js';
+import { transparent, tertiary, disabled, black } from '@kano/styles/button.js';
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { rubbishBin } from '@kano/icons/ui.js';
 import { flag } from '@kano/icons/social.js';
@@ -80,6 +79,10 @@ import { flag } from '@kano/icons/social.js';
 class KwcSocialComments extends PolymerElement {
     static get template() {
         return html`
+        ${transparent}
+        ${tertiary}
+        ${disabled}
+        ${black}
         <style>
             :host {
                 @apply --layout-vertical;
@@ -256,47 +259,11 @@ class KwcSocialComments extends PolymerElement {
             :host([retry-button="hide"]) #retry {
                 display: none;
             }
-            .submit-button,
-            .cancel-button {
-                border: none;
-                border-radius: 16px;
-                height: 32px;
-                padding: 0 15px;
-                font-family: var(--font-body);
-                font-size: 16px;
-                font-weight: bold;
-                transition: all 0.15s ease;
-            }
-            .submit-button {
-                background: #F6F7F9;
-            }
-            .submit-button:not([disabled]) {
-                color: #3F4A52;
-            }
-            .cancel-button {
-                background: transparent;
-                color: #9EA4A8;
-            }
-            .submit-button:focus,
-            .cancel-button:focus {
-                outline: none;
-            }
-            .submit-button:not([disabled]):hover,
-            .cancel-button:hover {
-                cursor: pointer;
-                color: #090A0A;
-            }
-            .submit-button:not([disabled]):hover {
-                background-color: #E5E8EC;
-            }
             @media all and (max-width: 360px) {
                 .comment-form-actions {
                     @apply --layout-vertical;
                     @apply --layout-start;
                     @apply --layout-start-justified;
-                }
-                .comment-form-actions kwc-button ~ kwc-button {
-                    margin: 8px 0 0 0;
                 }
             }
             @media all and (min-width: 361px) {
@@ -304,9 +271,6 @@ class KwcSocialComments extends PolymerElement {
                     @apply --layout-horizontal;
                     @apply --layout-center;
                     @apply --layout-start-justified;
-                }
-                .comment-form-actions kwc-button ~ kwc-button {
-                    margin: 0 0 0 8px;
                 }
             }
             :host *[hidden] {
@@ -320,26 +284,25 @@ class KwcSocialComments extends PolymerElement {
             </div>
             <form class="comment-form" on-submit="_submitComment">
                 <input id="comment-input" class="comment-box" type="text" placeholder\$="[[_placeholderText]]" value="{{_comment::input}}" disabled\$="[[posting]]" on-focus="_toggleFormControls" on-keydown="_dialogKeydown">
-                <!-- <div class="comment-form-actions" hidden\$="[[!_displayFormActions]]"> -->
                 <div class="comment-form-actions">
-                    <button class="submit-button" type="submit" on-tap="_submitComment" disabled="[[!_commentValid]]">
+                    <button class="btn tertiary small" type="submit" on-tap="_submitComment" disabled="[[!_commentValid]]">
                         Submit
                     </button>
-                    <button class="cancel-button" on-tap="_cancelComment">
+                    <button class="btn transparent black" on-tap="_cancelComment">
                         Cancel
                     </button>
                 </div>
             </form>
         </div>
         <template is="dom-repeat" items="[[comments]]" as="comment">
-            <div id\$="[[comment.id]]" class\$="comment [[_computePostingClass(comment)]]">
+            <div id$="[[comment.id]]" class$="comment [[_computePostingClass(comment)]]">
                 <div class="comment-avatar">
-                    <iron-image class="avatar" src\$="[[_computeAvatar(comment.author)]]" sizing="cover" preload="" fade="" on-tap="_userTapped"></iron-image>
+                    <iron-image class="avatar" src$="[[_computeAvatar(comment.author)]]" sizing="cover" preload="" fade="" on-tap="_userTapped"></iron-image>
                 </div>
                 <div class="content">
                     <p class="comment-header">
                         <span class="author" on-tap="_userTapped">
-                            {{comment.author.username}}
+                            [[comment.author.username]]
                         </span>
                         <span class="date">
                             [[_timeSince(comment.date_created, comments.*)]] ago
@@ -348,7 +311,7 @@ class KwcSocialComments extends PolymerElement {
                     <p class="comment-body">
                         <span inner-h-t-m-l="[[_lb(comment.text)]]"></span>
                     </p>
-                    <p class="comment-error" hidden\$="[[!comment.error]]">
+                    <p class="comment-error" hidden$="[[!comment.error]]">
                         [[comment.error]]
                     </p>
                 </div>
@@ -363,15 +326,15 @@ class KwcSocialComments extends PolymerElement {
                             <div class="icon">${flag}</div>
                         </button>
                     </div>
-                    <kwc-button id="retry" on-tap="_retryButtonTapped" hidden\$="[[!comment.error]]" type="warning" transparent="">
+                    <button id="retry" class="btn transparent primary" on-tap="_retryButtonTapped" hidden$="[[!comment.error]]" type="warning">
                         retry
-                    </kwc-button>
+                    </button>
                 </div>
             </div>
         </template>
-        <kwc-button class="loader" id="loader" type="secondary" on-tap="_loadMoreData">
+        <button class="btn primary loader" id="loader" type="secondary" on-tap="_loadMoreData">
             Load more
-        </kwc-button>
+        </button>
     `;
     }
     static get properties() {

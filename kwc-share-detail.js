@@ -10,13 +10,13 @@ import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-image/iron-image.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/paper-spinner/paper-spinner-lite.js';
-import '@kano/kwc-button/kwc-mega-button.js';
 import '@kano/kwc-share-player/kwc-share-player.js';
 import '@kano/kwc-share-card/kwc-share-action.js';
 import '@kano/kwc-share-card/kwc-share-cover.js';
 import '@kano/kwc-drop-down/kwc-drop-down.js';
 import '@kano/kwc-drop-down/kwc-drop-down-item.js';
-import '@kano/kwc-style/kwc-style.js';
+import '@kano/styles/typography.js';
+import '@kano/styles/color.js';
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { ellipsis, like } from '@kano/icons/ui.js';
 import { facebook, twitter, share } from '@kano/icons/social.js';
@@ -484,24 +484,24 @@ class KwcShareDetail extends PolymerElement {
                 <div class="main-details">
                     <div class="header">
                         <div class="avatar-wrapper">
-                            <iron-image class="avatar" src\$="[[_avatarUrl]]" sizing="cover" on-tap="_onUserTapped" preload="" fade="">
+                            <iron-image class="avatar" src\$="[[_avatarUrl]]" sizing="cover" on-click="_onUserTapped" preload="" fade="">
                                         </iron-image>
                         </div>
                         <div class="detail">
                             <h3 class="title">
                                 <slot name="title-icon"></slot>
                                 <div class="text">[[shareData.title]]</div>
-                                <iron-image class="featured-icon" src\$="[[_featuredIconUrl]]" sizing="contain" hidden\$="[[!featured]]" preload="" fade="">
+                                <iron-image class="featured-icon" src="[[_featuredIconUrl]]" sizing="contain" hidden$="[[!featured]]" alt="Staff pick" title="Staff pick" preload fade>
                                 </iron-image>
                             </h3>
                             <h4 class="attribution">by
-                                <a class="author" on-tap="_onUserTapped">[[shareData.username]]
+                                <a class="author" on-click="_onUserTapped">[[shareData.username]]
                                    </a>
                             </h4>
                             <p class="description">[[shareData.description]]</p>
                             <div class="actions">
                             <template is="dom-if" if="[[!_sharedByUser]]">
-                                <kwc-share-action class="like" on-tap="_onLikeTapped" active="[[liked]]">
+                                <kwc-share-action class="like" on-click="_onLikeTapped" active="[[liked]]">
                                     <div class="icon" slot="icon">${like}</div>
                                     [[_computedLikeButtonText(liked)]]
                                     <paper-spinner-lite active="[[submitingLike]]">
@@ -509,23 +509,23 @@ class KwcShareDetail extends PolymerElement {
                                 </kwc-share-action>
                                 </template>
                                 <template is="dom-if" if="[[_showRemixButton(shareData, canRemix)]]">
-                                    <kwc-share-action class="remix" icon="kwc-ui-icons:remix" on-tap="_onRemixTapped">Remix</kwc-share-action>
+                                    <kwc-share-action class="remix" icon="kwc-ui-icons:remix" on-click="_onRemixTapped">Remix</kwc-share-action>
                                 </template>
                                 <template is="dom-if" if="[[_showCodeButton(shareData)]]">
-                                    <kwc-share-action class="view-code" icon-id="kwc-social-icons:code" on-tap="_toggleCodeView">View&nbsp;code</kwc-share-action>
+                                    <kwc-share-action class="view-code" icon-id="kwc-social-icons:code" on-click="_toggleCodeView">View&nbsp;code</kwc-share-action>
                                 </template>
-                                <kwc-share-action id="more-actions-button" on-tap="_onMoreActionsTapped" active="[[dropDownOpened]]">
+                                <kwc-share-action id="more-actions-button" on-click="_onMoreActionsTapped" active="[[dropDownOpened]]">
                                     <div class="ellipsis">
                                         <div class="icon">${ellipsis}</div>
                                     </div>
                                     <kwc-drop-down id="more-actions-menu" caret-position="center" opened="{{dropDownOpened}}">
                                         <template is="dom-if" if="[[_showFeaturedButton(shareData, currentUser.admin_level)]]">
-                                            <kwc-drop-down-item class="feature" icon="kwc-ui-icons:rosette" on-tap="_onFeatureTapped">[[_computeFeatureButtonText(featured)]]</kwc-drop-down-item>
+                                            <kwc-drop-down-item class="feature" icon="kwc-ui-icons:rosette" on-click="_onFeatureTapped">[[_computeFeatureButtonText(featured)]]</kwc-drop-down-item>
                                         </template>
                                         <template is="dom-if" if="[[_displayMetaActions]]">
-                                            <kwc-drop-down-item class="delete" icon="kwc-ui-icons:rubbish-bin" on-tap="_onDeleteTapped">Delete</kwc-drop-down-item>
+                                            <kwc-drop-down-item class="delete" icon="kwc-ui-icons:rubbish-bin" on-click="_onDeleteTapped">Delete</kwc-drop-down-item>
                                         </template>
-                                        <kwc-drop-down-item id="drop-down-flag" class\$="flag no-margin [[_computeFlagStatus(flags.*)]]" icon="kwc-social-icons:flag" on-tap="_onFlagTapped"></kwc-drop-down-item>
+                                        <kwc-drop-down-item id="drop-down-flag" class\$="flag no-margin [[_computeFlagStatus(flags.*)]]" icon="kwc-social-icons:flag" on-click="_onFlagTapped"></kwc-drop-down-item>
                                     </kwc-drop-down>
                                 </kwc-share-action>
                             </div>
@@ -586,17 +586,17 @@ class KwcShareDetail extends PolymerElement {
                         <div class="sidebar-section-header">Share</div>
                         <ul class="social-actions">
                             <li class="social-action">
-                                <button class="social-button facebook" on-tap="_onFacebookTapped">
+                                <button class="social-button facebook" on-click="_onFacebookTapped">
                                     <div class="icon action-icon">${facebook}</div>
                                 </button>
                             </li>
                             <li class="social-action">
-                                <button class="social-button twitter" on-tap="_onTwitterTapped">
+                                <button class="social-button twitter" on-click="_onTwitterTapped">
                                     <div class="icon action-icon">${twitter}</div>
                                 </button>
                             </li>
                             <li class="social-action">
-                                <button class="social-button email" on-tap="_onEmailTapped">
+                                <button class="social-button email" on-click="_onEmailTapped">
                                     <div class="icon action-icon">${share}</div>
                                 </button>
                             </li>
