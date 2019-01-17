@@ -65,7 +65,6 @@ is still being sent, if this is a desired behaviour.
 
 @demo demo/index.html
 */
-import '@polymer/polymer/polymer-legacy.js';
 
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js';
@@ -74,11 +73,13 @@ import '@polymer/iron-icons/iron-icons.js';
 import '@kano/kwc-icons/kwc-social-icons.js';
 import '@kano/kwc-button/kwc-button.js';
 import '@kano/kwc-style/kwc-style.js';
-import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { rubbishBin } from '@kano/icons/ui.js';
+import { flag } from '@kano/icons/social.js';
 
-Polymer({
-    _template: html`
+class KwcSocialComments extends PolymerElement {
+    static get template() {
+        return html`
         <style>
             :host {
                 @apply --layout-vertical;
@@ -215,15 +216,15 @@ Polymer({
                 background: transparent;
                 border: 0;
                 border-radius: 3px;
-                color: var(--color-stone);
+                fill: var(--color-stone);
                 cursor: pointer;
             }
             .action.delete:hover,
             .action.flag:hover {
-                color: var(--color-carnation);
+                fill: var(--color-carnation);
             }
             .action.flag.flagged {
-                color: var(--color-carnation);
+                fill: var(--color-carnation);
                 visibility: visible;
             }
             .action .icon {
@@ -355,11 +356,11 @@ Polymer({
                     <div class="control-actions">
                         <template is="dom-if" if="[[_commentIsDeletable(comment.author.id, user.id, user.admin_level)]]">
                             <button type="button" class="action delete" on-tap="_deleteButtonTapped">
-                                <iron-icon class="icon" icon="kwc-ui-icons:rubbish-bin"></iron-icon>
+                                <div class="icon">${rubbishBin}</div>
                             </button>
                         </template>
-                        <button type="button" class\$="[[_computeFlagClass(comment.*)]]" on-tap="_flagButtonTapped">
-                            <iron-icon class="icon" icon="kwc-social-icons:flag"></iron-icon>
+                        <button type="button" class$="[[_computeFlagClass(comment.*)]]" on-tap="_flagButtonTapped">
+                            <div class="icon">${flag}</div>
                         </button>
                     </div>
                     <kwc-button id="retry" on-tap="_retryButtonTapped" hidden\$="[[!comment.error]]" type="warning" transparent="">
@@ -371,136 +372,134 @@ Polymer({
         <kwc-button class="loader" id="loader" type="secondary" on-tap="_loadMoreData">
             Load more
         </kwc-button>
-    `,
-
-    is: 'kwc-social-comments',
-
-    properties: {
-        /**
-           * Computer value for avatar
-           * @type {String}
-           */
-        _avatar: {
-            type: String,
-            computed: '_computeAvatar(user)',
-        },
-        /**
-           * Current value for comment input
-           * @type {String}
-           */
-        _comment: {
-            type: String,
-            value: '',
-        },
-        /**
-           * Whethe the `_comment` is valid
-           * @type {Boolean}
-           */
-        _commentValid: {
-            type: Boolean,
-            computed: '_commentIsValid(_comment)',
-        },
-        /**
-           * Array of comment objects to render
-           * @type {Array}
-           */
-        comments: {
-            type: Array,
-            value: () => [],
-            notify: true,
-        },
-        /**
-           * Array of comment ids where user has flagged the specific comments
-           * @type {Array}
-           */
-        commentFlags: {
-            type: Array,
-            value: () => [],
-            notify: true,
-        },
-        /**
-           * Default Avatar to use when not provided by comment or user data
-           * @type {String}
-           */
-        defaultAvatar: {
-            type: String,
-            value: 'https://s3.amazonaws.com/kano-avatars/default-avatar.svg',
-        },
-        /**
-           * Boolean toggle to show or hide the Submit and Cancel buttons
-           * on the comment input
-           * @type {Boolean}
-           */
-        _displayFormActions: {
-            type: Boolean,
-            value: false,
-        },
-        /**
-           * An identifier to this comment thread, to be used in the `post-comment` event.
-           * @type {String}
-           */
-        itemId: {
-            type: String,
-        },
-        /**
-           * Value of next page of comments if using pagination.
-           * @type {Number}
-           */
-        nextPage: {
-            type: Number,
-            value: 0,
-            observer: '_onDataLoad',
-        },
-        /**
-           * Text to use as placeholder. Computed on whether we have comments or not.
-           * @type {String}
-           */
-        _placeholderText: {
-            type: String,
-            computed: '_computePlaceholderText(comments)',
-        },
-        /**
-           * Atribute to indicate a comment is being posted. Will disable input.
-           * @type {Boolean}
-           */
-        posting: {
-            type: Boolean,
-            value: false,
-        },
-        /**
-           * Atribute to loader status of the component.
-           * Can be one of `on|off|disabled`. Will disable (disabled) or hide (off) load button.
-           * @type {String}
-           */
-        loaderStatus: {
-            type: String,
-            value: 'off',
-            reflectToAttribute: true,
-        },
-        /**
-           * Atribute used to hide the retry button once clicked.
-           * @type {Boolean}
-           */
-        retryButton: {
-            type: String,
-            reflectToAttribute: true,
-        },
-        /**
-           * Current authenticated user.
-           * @type {String}
-           */
-        user: {
-            type: Object,
-            value: () => ({}),
-        },
-    },
-
+    `;
+    }
+    static get properties() {
+        return {
+            /**
+               * Computer value for avatar
+               * @type {String}
+               */
+            _avatar: {
+                type: String,
+                computed: '_computeAvatar(user)',
+            },
+            /**
+               * Current value for comment input
+               * @type {String}
+               */
+            _comment: {
+                type: String,
+                value: '',
+            },
+            /**
+               * Whethe the `_comment` is valid
+               * @type {Boolean}
+               */
+            _commentValid: {
+                type: Boolean,
+                computed: '_commentIsValid(_comment)',
+            },
+            /**
+               * Array of comment objects to render
+               * @type {Array}
+               */
+            comments: {
+                type: Array,
+                value: () => [],
+                notify: true,
+            },
+            /**
+               * Array of comment ids where user has flagged the specific comments
+               * @type {Array}
+               */
+            commentFlags: {
+                type: Array,
+                value: () => [],
+                notify: true,
+            },
+            /**
+               * Default Avatar to use when not provided by comment or user data
+               * @type {String}
+               */
+            defaultAvatar: {
+                type: String,
+                value: 'https://s3.amazonaws.com/kano-avatars/default-avatar.svg',
+            },
+            /**
+               * Boolean toggle to show or hide the Submit and Cancel buttons
+               * on the comment input
+               * @type {Boolean}
+               */
+            _displayFormActions: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+               * An identifier to this comment thread, to be used in the `post-comment` event.
+               * @type {String}
+               */
+            itemId: {
+                type: String,
+            },
+            /**
+               * Value of next page of comments if using pagination.
+               * @type {Number}
+               */
+            nextPage: {
+                type: Number,
+                value: 0,
+                observer: '_onDataLoad',
+            },
+            /**
+               * Text to use as placeholder. Computed on whether we have comments or not.
+               * @type {String}
+               */
+            _placeholderText: {
+                type: String,
+                computed: '_computePlaceholderText(comments)',
+            },
+            /**
+               * Atribute to indicate a comment is being posted. Will disable input.
+               * @type {Boolean}
+               */
+            posting: {
+                type: Boolean,
+                value: false,
+            },
+            /**
+               * Atribute to loader status of the component.
+               * Can be one of `on|off|disabled`. Will disable (disabled) or hide (off) load button.
+               * @type {String}
+               */
+            loaderStatus: {
+                type: String,
+                value: 'off',
+                reflectToAttribute: true,
+            },
+            /**
+               * Atribute used to hide the retry button once clicked.
+               * @type {Boolean}
+               */
+            retryButton: {
+                type: String,
+                reflectToAttribute: true,
+            },
+            /**
+               * Current authenticated user.
+               * @type {String}
+               */
+            user: {
+                type: Object,
+                value: () => ({}),
+            },
+        };
+    }
     _dialogKeydown(e) {
         if (e.keyCode === 8) {
             e.stopPropagation();
         }
-    },
-
+    }
     /**
      * Reset the `_comment` back to an empty String and hide the form
      * actions
@@ -508,13 +507,11 @@ Polymer({
     _cancelComment() {
         this._comment = '';
         this._displayFormActions = false;
-    },
-
+    }
     /** Show the Submit and Cancel buttons on the comment input */
     _toggleFormControls() {
         this._displayFormActions = true;
-    },
-
+    }
     /**
      * Decide whether the current comment is valid
      * @param {String} comment
@@ -529,19 +526,16 @@ Polymer({
             return false;
         }
         return true;
-    },
-
+    }
     _computeAvatar(user) {
         if (user) {
             return user.avatar || this.defaultAvatar;
         }
         return this.defaultAvatar;
-    },
-
+    }
     _onDataLoad() {
         this.$.loader.disabled = false;
-    },
-
+    }
     _loadMoreData() {
         if (!this.itemId || this.$.loader.disabled) {
             return;
@@ -552,12 +546,10 @@ Polymer({
                 id: this.itemId,
             },
         }));
-    },
-
+    }
     _createDate(formatted) {
         return new Date(formatted);
-    },
-
+    }
     /**
      * Compute whether a comment is deletable by the current user
      * – either they must have written the comment, or they must be
@@ -569,22 +561,19 @@ Polymer({
      */
     _commentIsDeletable(commentAuthorId, userId, userAdminLevel) {
         return commentAuthorId === userId || userAdminLevel > 0;
-    },
-
+    }
     _computeFlag(flags) {
         if (!flags || !this.user) {
             return false;
         }
         return flags.some(flag => flag.author === this.user.id);
-    },
-
+    }
     _computeCommentFlag(comment) {
         if (this.commentFlags.length === 0) {
             return false;
         }
         return this.commentFlags.some(flag => flag === comment.id);
-    },
-
+    }
     _computeFlagClass(splice) {
         const baseClass = 'action flag';
         let activeClass;
@@ -594,27 +583,22 @@ Polymer({
             activeClass = this._computeCommentFlag(splice.base) ? 'flagged' : 'unflagged';
         }
         return `${baseClass} ${activeClass}`;
-    },
-
+    }
     _computePlaceholderText(comments) {
         if (!comments || !comments.length) {
             return 'Be the first to comment';
         }
         return 'Leave a comment';
-    },
-
+    }
     _computePostingClass(comment) {
         return `${comment.posting ? 'posting' : ''}${comment.error ? 'error' : ''}`;
-    },
-
+    }
     _computeErrorClass(error) {
         return error ? 'error' : '';
-    },
-
+    }
     _computeErrorState(error) {
         return error ? true : '';
-    },
-
+    }
     /**
      * Dispatch the event to delete a comment
      * @param {Event} e
@@ -630,18 +614,15 @@ Polymer({
                 id: commentId,
             },
         }));
-    },
-
+    }
     _isHintHidden() {
         return true;
-    },
-
+    }
     _lb(value) {
         const safeDiv = document.createElement('div');
         safeDiv.textContent = value;
         return safeDiv.innerHTML.replace(/\n/g, '<br>');
-    },
-
+    }
     /**
     * Fired when flag icon is pressed on an individual comment.
     *
@@ -678,8 +659,7 @@ Polymer({
                 id,
             },
         }));
-    },
-
+    }
     /**
     * Fired when retry is clicked on an individual comment that has errored.
     *
@@ -695,8 +675,7 @@ Polymer({
                 retry: true,
             },
         }));
-    },
-
+    }
     /**
     * Fired when new comment is submited.
     *
@@ -724,8 +703,7 @@ Polymer({
             }));
             this._comment = '';
         }
-    },
-
+    }
     _timeSince(date) {
         const parsedDate = new Date(Date.parse(date));
         const seconds = Math.floor((new Date() - parsedDate) / 1000);
@@ -750,13 +728,11 @@ Polymer({
             return this.multipleCheck(interval, 'minute');
         }
         return `${Math.floor(seconds)} seconds`;
-    },
-
+    }
     multipleCheck(interval, unit) {
         const baseDate = `${interval} ${unit}`;
         return interval === 1 ? baseDate : `${baseDate}s`;
-    },
-
+    }
     /**
     * Fired when the user icon or name is tapped on an individual comment.
     *
@@ -774,5 +750,7 @@ Polymer({
                 },
             }));
         }
-    },
-});
+    }
+}
+
+customElements.define('kwc-social-comments', KwcSocialComments);
