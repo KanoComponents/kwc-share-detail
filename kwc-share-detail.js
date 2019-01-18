@@ -464,13 +464,13 @@ class KwcShareDetail extends PolymerElement {
             <div class="share-content">
                 <div class="loading">
                     <div class="overlay">
-                        <paper-spinner-lite class="spinner" active=""></paper-spinner-lite>
+                        <paper-spinner-lite class="spinner" active></paper-spinner-lite>
                     </div>
                 </div>
                 <div class="content">
                     <div id="share-container">
                         <slot name="player::before"></slot>
-                        <kwc-share-player share="[[shareData]]" display-code="{{displayCode}}">
+                        <kwc-share-player share="[[shareData]]" display-code="[[displayCode]]">
                         </kwc-share-player>
                         <slot name="player::after"></slot>
                     </div>
@@ -484,8 +484,7 @@ class KwcShareDetail extends PolymerElement {
                 <div class="main-details">
                     <div class="header">
                         <div class="avatar-wrapper">
-                            <iron-image class="avatar" src\$="[[_avatarUrl]]" sizing="cover" on-click="_onUserTapped" preload="" fade="">
-                                        </iron-image>
+                            <iron-image class="avatar" src="[[_avatarUrl]]" sizing="cover" on-click="_onUserTapped" preload fade></iron-image>
                         </div>
                         <div class="detail">
                             <h3 class="title">
@@ -495,8 +494,7 @@ class KwcShareDetail extends PolymerElement {
                                 </iron-image>
                             </h3>
                             <h4 class="attribution">by
-                                <a class="author" on-click="_onUserTapped">[[shareData.username]]
-                                   </a>
+                                <a class="author" on-click="_onUserTapped">[[shareData.username]]</a>
                             </h4>
                             <p class="description">[[shareData.description]]</p>
                             <div class="actions">
@@ -504,107 +502,106 @@ class KwcShareDetail extends PolymerElement {
                                 <kwc-share-action class="like" on-click="_onLikeTapped" active="[[liked]]">
                                     <div class="icon" slot="icon">${like}</div>
                                     [[_computedLikeButtonText(liked)]]
-                                    <paper-spinner-lite active="[[submitingLike]]">
-                                    </paper-spinner-lite>
+                                    <paper-spinner-lite active="[[submitingLike]]"></paper-spinner-lite>
                                 </kwc-share-action>
-                                </template>
-                                <template is="dom-if" if="[[_showRemixButton(shareData, canRemix)]]">
-                                    <kwc-share-action class="remix" icon="kwc-ui-icons:remix" on-click="_onRemixTapped">Remix</kwc-share-action>
-                                </template>
-                                <template is="dom-if" if="[[_showCodeButton(shareData)]]">
-                                    <kwc-share-action class="view-code" icon-id="kwc-social-icons:code" on-click="_toggleCodeView">View&nbsp;code</kwc-share-action>
-                                </template>
-                                <kwc-share-action id="more-actions-button" on-click="_onMoreActionsTapped" active="[[dropDownOpened]]">
-                                    <div class="ellipsis">
-                                        <div class="icon">${ellipsis}</div>
-                                    </div>
-                                    <kwc-drop-down id="more-actions-menu" caret-position="center" opened="{{dropDownOpened}}">
-                                        <template is="dom-if" if="[[_showFeaturedButton(shareData, currentUser.admin_level)]]">
-                                            <kwc-drop-down-item class="feature" icon="kwc-ui-icons:rosette" on-click="_onFeatureTapped">[[_computeFeatureButtonText(featured)]]</kwc-drop-down-item>
-                                        </template>
-                                        <template is="dom-if" if="[[_displayMetaActions]]">
-                                            <kwc-drop-down-item class="delete" icon="kwc-ui-icons:rubbish-bin" on-click="_onDeleteTapped">Delete</kwc-drop-down-item>
-                                        </template>
-                                        <kwc-drop-down-item id="drop-down-flag" class\$="flag no-margin [[_computeFlagStatus(flags.*)]]" icon="kwc-social-icons:flag" on-click="_onFlagTapped"></kwc-drop-down-item>
-                                    </kwc-drop-down>
-                                </kwc-share-action>
-                            </div>
-                            <div class="stats">
-                                <span hidden\$="[[!likes.length]]">[[likes.length]] Likes</span>
-                                <span hidden\$="[[!comments.count]]">[[comments.count]] Comments</span>
-                                <span hidden\$="[[!shareData.views_count]]">[[shareData.views_count]] Views</span>
-                            </div>
+                            </template>
+                            <template is="dom-if" if="[[_showRemixButton(shareData, canRemix)]]">
+                                <kwc-share-action class="remix" icon="kwc-ui-icons:remix" on-click="_onRemixTapped">Remix</kwc-share-action>
+                            </template>
+                            <template is="dom-if" if="[[_showCodeButton(shareData)]]">
+                                <kwc-share-action class="view-code" icon-id="kwc-social-icons:code" on-click="_toggleCodeView">View&nbsp;code</kwc-share-action>
+                            </template>
+                            <kwc-share-action id="more-actions-button" on-click="_onMoreActionsTapped" active="[[dropDownOpened]]">
+                                <div class="ellipsis">
+                                    <div class="icon">${ellipsis}</div>
+                                </div>
+                                <kwc-drop-down id="more-actions-menu" caret-position="center" opened="{{dropDownOpened}}">
+                                    <template is="dom-if" if="[[_showFeaturedButton(shareData, currentUser.admin_level)]]">
+                                        <kwc-drop-down-item class="feature" icon="kwc-ui-icons:rosette" on-click="_onFeatureTapped">[[_computeFeatureButtonText(featured)]]</kwc-drop-down-item>
+                                    </template>
+                                    <template is="dom-if" if="[[_displayMetaActions]]">
+                                        <kwc-drop-down-item class="delete" icon="kwc-ui-icons:rubbish-bin" on-click="_onDeleteTapped">Delete</kwc-drop-down-item>
+                                    </template>
+                                    <kwc-drop-down-item id="drop-down-flag" class$="flag no-margin [[_computeFlagStatus(flags.*)]]" icon="kwc-social-icons:flag" on-click="_onFlagTapped"></kwc-drop-down-item>
+                                </kwc-drop-down>
+                            </kwc-share-action>
                         </div>
-                    </div>
-                    <div class="social">
-                        <!-- Set up with support for showing lists of
-                                 likes and remixes in future, when the API support
-                                 is available -->
-                        <iron-pages id="social-sections" selected="[[_section]]" attr-for-selected="section-name" fallback-selection="comments">
-                            <div section-name="comments" class="social-section">
-                                <kwc-social-comments id="comments" comments="[[comments.entries]]" default-avatar="[[_defaultCommentAvatarUrl]]" next-page="[[comments.page]]" item-id="[[shareData.id]]" tombstone\$="[[!shareData]]" user="[[currentUser]]" loader-status="[[commentLoaderStatus]]" comment-flags="[[commentFlags]]" on-delete-comment="_handleDeleteComment" on-load-comment="_handleLoadComment" on-post-comment="_handlePostComment" on-flag-comment="_handleFlagComment" on-unflag-comment="_handleUnflagComment" on-view-user="_handleViewUser">
-                                                     </kwc-social-comments>
-                            </div>
-                        </iron-pages>
+                        <div class="stats">
+                            <span hidden$="[[!likes.length]]">[[likes.length]] Likes</span>
+                            <span hidden$="[[!comments.count]]">[[comments.count]] Comments</span>
+                            <span hidden$="[[!shareData.views_count]]">[[shareData.views_count]] Views</span>
+                        </div>
                     </div>
                 </div>
-                <div class="supplementary-details">
-                    <template is="dom-if" if="[[_showRelatedShares(related)]]">
-                        <div class="related-shares">
-                            <div class="sidebar-section-header">More from [[shareData.username]]</div>
-                            <div class="related-shares-list">
-                                <template is="dom-repeat" items="[[related]]">
-                                    <a href="[[item.targetUrl]]">
-                                        <kwc-share-cover class="related-shares-cover" image-url="[[item.imageUrl]]" spritesheet-url="[[item.spritesheetUrl]]">
-                                        </kwc-share-cover>
+                <div class="social">
+                    <!-- Set up with support for showing lists of
+                                likes and remixes in future, when the API support
+                                is available -->
+                    <iron-pages id="social-sections" selected="[[_section]]" attr-for-selected="section-name" fallback-selection="comments">
+                        <div section-name="comments" class="social-section">
+                            <kwc-social-comments id="comments" comments="[[comments.entries]]" default-avatar="[[_defaultCommentAvatarUrl]]" next-page="[[comments.page]]" item-id="[[shareData.id]]" tombstone$="[[!shareData]]" user="[[currentUser]]" loader-status="[[commentLoaderStatus]]" comment-flags="[[commentFlags]]" on-delete-comment="_handleDeleteComment" on-load-comment="_handleLoadComment" on-post-comment="_handlePostComment" on-flag-comment="_handleFlagComment" on-unflag-comment="_handleUnflagComment" on-view-user="_handleViewUser">
+                                                    </kwc-social-comments>
+                        </div>
+                    </iron-pages>
+                </div>
+            </div>
+            <div class="supplementary-details">
+                <template is="dom-if" if="[[_showRelatedShares(related)]]">
+                    <div class="related-shares">
+                        <div class="sidebar-section-header">More from [[shareData.username]]</div>
+                        <div class="related-shares-list">
+                            <template is="dom-repeat" items="[[related]]">
+                                <a href="[[item.targetUrl]]">
+                                    <kwc-share-cover class="related-shares-cover" image-url="[[item.imageUrl]]" spritesheet-url="[[item.spritesheetUrl]]">
+                                    </kwc-share-cover>
+                                </a>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+                <template is="dom-if" if="[[_wandHardwareUsed(shareData.hardware)]]">
+                    <div class="parts-used">
+                        <div class="sidebar-section-header">Hold down the button on your wand to see the spell motions in this creation</div>
+                    </div>
+                </template>
+                <template is="dom-if" if="[[_anyHardwareUsed(shareData.hardware)]]">
+                    <div class="parts-used">
+                        <div class="sidebar-section-header">Parts Used</div>
+                        <ul class="parts-used-list">
+                            <template is="dom-repeat" items="[[shareData.hardware]]">
+                                <li>
+                                    <a href$="[[_getLinkForPartId(item.product)]]" class$="[[_computePartsLinkClass(item.product)]]">
+                                        <div class="icon" id="part" inner-h-t-m-l="[[_getPartIcon(item.product)]]"></div>
+                                        <div class="label">[[_getLabelForPartId(item.product)]]</div>
                                     </a>
-                                </template>
-                            </div>
-                        </div>
-                    </template>
-                    <template is="dom-if" if="[[_wandHardwareUsed(shareData.hardware)]]">
-                        <div class="parts-used">
-                            <div class="sidebar-section-header">Hold down the button on your wand to see the spell motions in this creation</div>
-                        </div>
-                    </template>
-                    <template is="dom-if" if="[[_anyHardwareUsed(shareData.hardware)]]">
-                        <div class="parts-used">
-                            <div class="sidebar-section-header">Parts Used</div>
-                            <ul class="parts-used-list">
-                                <template is="dom-repeat" items="[[shareData.hardware]]">
-                                    <li>
-                                        <a href$="[[_getLinkForPartId(item.product)]]" class$="[[_computePartsLinkClass(item.product)]]">
-                                            <div class="icon" id="part" inner-h-t-m-l="[[_getPartIcon(item.product)]]"></div>
-                                            <div class="label">[[_getLabelForPartId(item.product)]]</div>
-                                        </a>
-                                    </li>
-                                </template>
-                            </ul>
-                        </div>
-                    </template>
-                    <div class="social" hidden$="[[hideSocial]]">
-                        <div class="sidebar-section-header">Share</div>
-                        <ul class="social-actions">
-                            <li class="social-action">
-                                <button class="social-button facebook" on-click="_onFacebookTapped">
-                                    <div class="icon action-icon">${facebook}</div>
-                                </button>
-                            </li>
-                            <li class="social-action">
-                                <button class="social-button twitter" on-click="_onTwitterTapped">
-                                    <div class="icon action-icon">${twitter}</div>
-                                </button>
-                            </li>
-                            <li class="social-action">
-                                <button class="social-button email" on-click="_onEmailTapped">
-                                    <div class="icon action-icon">${share}</div>
-                                </button>
-                            </li>
+                                </li>
+                            </template>
                         </ul>
                     </div>
+                </template>
+                <div class="social" hidden$="[[hideSocial]]">
+                    <div class="sidebar-section-header">Share</div>
+                    <ul class="social-actions">
+                        <li class="social-action">
+                            <button class="social-button facebook" on-click="_onFacebookTapped">
+                                <div class="icon action-icon">${facebook}</div>
+                            </button>
+                        </li>
+                        <li class="social-action">
+                            <button class="social-button twitter" on-click="_onTwitterTapped">
+                                <div class="icon action-icon">${twitter}</div>
+                            </button>
+                        </li>
+                        <li class="social-action">
+                            <button class="social-button email" on-click="_onEmailTapped">
+                                <div class="icon action-icon">${share}</div>
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </div>
 `;
     }
     static get properties() {

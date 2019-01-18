@@ -20,6 +20,7 @@ export const comments = {
         text: 'fun with comments',
         date_created: '2017-07-25T08:39:51.349Z',
         flags: [],
+        error: 'Could not post comment',
     }, {
         id: '597703a994e3ff22866cd79c',
         author: {
@@ -65,6 +66,7 @@ export const share = {
         },
     ],
 };
+
 export const user = {
     username: 'nectarsoft',
     id: '5970adcc1ad1b72285933ef5',

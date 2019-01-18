@@ -7,20 +7,38 @@
 
     <title>kwc-share-detail demo</title>
 
+    <style>
+        html {
+            font-family: var(--font-body);
+        }
+        fieldset {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px 30px;
+            border: 1px solid var(--color-kano-orange);
+            border-radius: 16px;
+        }
+    </style>
+
     <script type="module" src="../kwc-share-detail.js"></script>
 </head>
 
 <body>
     <div class="vertical-section-container share-detail centered">
-        <h3>Basic kwc-share-detail demo</h3>
-        <kwc-share-detail id="share-detail">
-            </demo-snippet>
-            <h3>Remix kwc-share-detail demo</h3>
-            <kwc-share-detail id="share-detail-remix">
-                </demo-snippet>
-                <h3>kwc-share-detail demo viewed by author</h3>
-                <kwc-share-detail id="share-detail-author">
-                    </demo-snippet>
+        <h2>kwc-share-detail</h2>
+        <fieldset>
+            <legend>Basic kwc-share-detail demo</legend>
+            <kwc-share-detail id="share-detail"></kwc-share-detail>
+        </fieldset>
+        <fieldset>
+            <legend>Remix kwc-share-detail demo</legend>
+            <kwc-share-detail id="share-detail-remix"></kwc-share-detail>
+        </fieldset>
+        <fieldset>
+            <legend>kwc-share-detail demo viewed by author</legend>
+            <kwc-share-detail id="share-detail-author"></kwc-share-detail>
+        </fieldset>
+
     </div>
     <script type="module">
         import * as data from './data.js';

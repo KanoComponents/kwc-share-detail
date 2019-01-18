@@ -280,10 +280,10 @@ class KwcSocialComments extends PolymerElement {
 
         <div class="input-comment">
             <div class="comment-avatar">
-                <iron-image class="avatar" src\$="[[_avatar]]" sizing="cover" preload="" fade=""></iron-image>
+                <iron-image class="avatar" src$="[[_avatar]]" sizing="cover" preload fade></iron-image>
             </div>
             <form class="comment-form" on-submit="_submitComment">
-                <input id="comment-input" class="comment-box" type="text" placeholder\$="[[_placeholderText]]" value="{{_comment::input}}" disabled\$="[[posting]]" on-focus="_toggleFormControls" on-keydown="_dialogKeydown">
+                <input id="comment-input" class="comment-box" type="text" placeholder$="[[_placeholderText]]" value="{{_comment::input}}" disabled$="[[posting]]" on-focus="_toggleFormControls" on-keydown="_dialogKeydown">
                 <div class="comment-form-actions">
                     <button class="btn tertiary small" type="submit" on-tap="_submitComment" disabled="[[!_commentValid]]">
                         Submit
@@ -297,7 +297,7 @@ class KwcSocialComments extends PolymerElement {
         <template is="dom-repeat" items="[[comments]]" as="comment">
             <div id$="[[comment.id]]" class$="comment [[_computePostingClass(comment)]]">
                 <div class="comment-avatar">
-                    <iron-image class="avatar" src$="[[_computeAvatar(comment.author)]]" sizing="cover" preload="" fade="" on-tap="_userTapped"></iron-image>
+                    <iron-image class="avatar" src$="[[_computeAvatar(comment.author)]]" sizing="cover" preload fade on-tap="_userTapped"></iron-image>
                 </div>
                 <div class="content">
                     <p class="comment-header">

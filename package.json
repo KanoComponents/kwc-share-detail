@@ -4,8 +4,8 @@
   "version": "3.0.2",
   "scripts": {
     "serve": "es6-server",
-    "serve-test": "web-tester serve ./test",
-    "test": "web-tester run ./test",
+    "serve-test": "web-tester serve ./*.test.js",
+    "test": "web-tester run ./*.test.js",
     "test-ci": "yarn run --silent test > test-results.xml",
     "checkstyle": "eslint ./kwc-*.js",
     "checkstyle-ci": "yarn checkstyle -f checkstyle -o eslint.xml"

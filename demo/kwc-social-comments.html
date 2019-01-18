@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>kwc-social-comments demo</title>
+    <style>
+        html {
+            font-family: var(--font-body);
+        }
+        fieldset {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px 30px;
+            border: 1px solid var(--color-kano-orange);
+            border-radius: 16px;
+        }
+    </style>
+
+    <script type="module" src="../kwc-social-comments.js"></script>
+</head>
+
+<body>
+    <div class="vertical-section-container social-comments centered">
+        <h2>kwc-social-comments</h2>
+        <fieldset>
+            <legend>Basic kwc-social demo</legend>
+            <kwc-social-comments id="social-comments"></kwc-social-comments>
+        </fieldset>
+        <fieldset>
+            <legend>kwc-social-comments as admin</legend>
+            <kwc-social-comments id="social-comments-admin"></kwc-social-comments>
+        </fieldset>
+
+    </div>
+    <script type="module">
+        import * as data from './data.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let detail = document.querySelector('#social-comments');
+            detail.comments = data.comments.entries;
+            detail.user = data.user;
+            detail.featured = data.share.featured;
+
+            detail = document.querySelector('#social-comments-admin');
+            detail.comments = data.comments.entries;
+            detail.likes = [];
+            detail.user = data.admin;
+            detail.featured = data.share.featured;
+        });
+    </script>
+</body>
+
+</html>
