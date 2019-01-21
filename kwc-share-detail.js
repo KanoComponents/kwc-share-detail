@@ -870,7 +870,7 @@ class KwcShareDetail extends PolymerElement {
     }
     _getPartIcon(product) {
         // snake case to camelCase
-        const icon = partIcons[product.replace(/(\-\w)/g, m => m[1].toUpperCase())];
+        const icon = partIcons[product.replace(/(-\w)/g, m => m[1].toUpperCase())];
         if (!icon) {
             return '';
         }
@@ -940,7 +940,7 @@ class KwcShareDetail extends PolymerElement {
         if (Array.isArray(likeChangeObj.base)) {
             const likes = likeChangeObj.base;
             if (likes && likes.length && currentUser) {
-                const liked = likes.some(like => like.user === currentUser.id);
+                const liked = likes.some(l => l.user === currentUser.id);
                 return liked;
             }
         } else if (likeChangeObj.base.userLikes.length > 0 && this.shareData && this.shareData.id) {
@@ -1034,8 +1034,8 @@ class KwcShareDetail extends PolymerElement {
      * @param {Boolean} canRemix Flag this share can be remixed
      * @return {Boolean}
      */
-    _showRemixButton(share, canRemix) {
-        if (share && canRemix) {
+    _showRemixButton(sh, canRemix) {
+        if (sh && canRemix) {
             return true;
         }
         return false;
@@ -1047,8 +1047,8 @@ class KwcShareDetail extends PolymerElement {
      * @param {Boolean} isAdmin Flag this user as admin
      * @return {Boolean}
      */
-    _showFeaturedButton(share, isAdmin) {
-        return share && isAdmin;
+    _showFeaturedButton(sh, isAdmin) {
+        return sh && isAdmin;
     }
     _showMoreActions(shareData, userAdminLevel, displayMetaActions) {
         return this._showFeaturedButton(shareData, userAdminLevel) || displayMetaActions;
@@ -1144,8 +1144,8 @@ class KwcShareDetail extends PolymerElement {
         this.set('displayCode', newValue);
     }
     _onUserTapped() {
-        const share = this.shareData;
-        if (!share) {
+        const sh = this.shareData;
+        if (!sh) {
             return;
         }
         this.dispatchEvent(new CustomEvent('view-user', {

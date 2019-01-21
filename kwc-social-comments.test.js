@@ -1,3 +1,5 @@
+/* globals fixture, suite, test, assert */
+
 import './kwc-social-comments.js';
 
 const basic = fixture`
@@ -22,7 +24,6 @@ suite('kwc-social-comments', () => {
         const element = basic();
         const button = element.root.querySelector('#loader');
         assert(!isVisible(button));
-        element.loaderStatus
     });
     test('load more visible when not loading', () => {
         const element = loadMore();

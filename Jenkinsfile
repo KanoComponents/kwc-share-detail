@@ -26,10 +26,10 @@ pipeline {
         stage('install dependencies') {
             steps {
                 script {
-                    sshagent(['read-only-github']) {
-                        docker.image('node:8-alpine').inside('--user root') {
-                            sh "ssh-keyscan github.com >> ~/.ssh/known_hosts"
-                            sh "apk update && apk upgrade && apk add --no-cache bash git openssh"
+                    docker.image('node:8-alpine').inside('--user root') {
+                        sh "apk update && apk upgrade && apk add --no-cache bash git openssh"
+                        sh "mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts"
+                        sshagent(['read-only-github']) {
                             sh "yarn"
                         }
                     }

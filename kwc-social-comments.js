@@ -529,13 +529,13 @@ class KwcSocialComments extends PolymerElement {
         if (!flags || !this.user) {
             return false;
         }
-        return flags.some(flag => flag.author === this.user.id);
+        return flags.some(f => f.author === this.user.id);
     }
     _computeCommentFlag(comment) {
         if (this.commentFlags.length === 0) {
             return false;
         }
-        return this.commentFlags.some(flag => flag === comment.id);
+        return this.commentFlags.some(f => f === comment.id);
     }
     _computeFlagClass(splice) {
         const baseClass = 'action flag';

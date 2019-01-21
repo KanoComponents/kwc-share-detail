@@ -1,3 +1,5 @@
+/* globals fixture, suite, test, assert */
+
 import './kwc-share-detail.js';
 
 const basic = fixture`
