@@ -6,3 +6,4 @@ Jenkinsfile
 .eslintrc.js
 yarn.lock
 README.md
+*.test.js
