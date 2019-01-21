@@ -26,7 +26,7 @@ pipeline {
         stage('install dependencies') {
             steps {
                 script {
-                    docker.image('node:8-alpine').inside {
+                    docker.image('node:8-alpine').inside('--user root') {
                         sh "apk update && apk upgrade && apk add --no-cache bash git openssh"
                         sh "yarn"
                     }
