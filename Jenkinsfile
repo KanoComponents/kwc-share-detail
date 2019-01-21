@@ -27,6 +27,7 @@ pipeline {
             steps {
                 script {
                     docker.image('node:8-alpine').inside {
+                        sh "apk update && apk upgrade && apk add --no-cache bash git openssh"
                         sh "yarn"
                     }
                 }
