@@ -71,7 +71,7 @@ import '@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js';
 import '@polymer/iron-image/iron-image.js';
 import '@kano/styles/typography.js';
 import '@kano/styles/color.js';
-import { transparent, tertiary, disabled, black } from '@kano/styles/button.js';
+import button from '@kano/styles/button.js';
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { rubbishBin } from '@kano/icons/ui.js';
 import { flag } from '@kano/icons/social.js';
@@ -79,16 +79,15 @@ import { flag } from '@kano/icons/social.js';
 class KwcSocialComments extends PolymerElement {
     static get template() {
         return html`
-        ${transparent}
-        ${tertiary}
-        ${disabled}
-        ${black}
+        ${button}
         <style>
             :host {
                 @apply --layout-vertical;
                 @apply --layout-center;
                 @apply --layout-justified;
                 width: 100%;
+                --separator-color: #e3e5e6;
+                --input-border-color: #e3e5e6;
             }
             :host([tombstone]) * {
                 visibility: hidden;
@@ -98,7 +97,7 @@ class KwcSocialComments extends PolymerElement {
             }
             .input-comment {
                 @apply --layout-horizontal;
-                border-bottom: 1px solid #F6F7F9;
+                border-bottom: 1px solid var(--separator-color);
                 padding: 24px 0;
                 margin: 0;
                 width: 100%;
@@ -129,7 +128,7 @@ class KwcSocialComments extends PolymerElement {
                 @apply --layout-flex-2;
             }
             .comment-box {
-                border: 1px solid #F6F7F9;
+                border: 1px solid var(--input-border-color);
                 border-radius: 3px;
                 box-sizing: border-box;
                 font-family: var(--font-body);
@@ -148,7 +147,7 @@ class KwcSocialComments extends PolymerElement {
             .comment {
                 @apply --layout-horizontal;
                 @apply --layout-start;
-                border-bottom: 1px solid #F6F7F9;
+                border-bottom: 1px solid var(--separator-color);
                 padding: 24px 0;
                 width: 100%;
             }
@@ -236,8 +235,6 @@ class KwcSocialComments extends PolymerElement {
             }
             #retry {
                 margin-top: 10px;
-                line-height: 15px;
-                height:25px;
             }
             iron-list {
                 width: 100%;
@@ -276,6 +273,9 @@ class KwcSocialComments extends PolymerElement {
             :host *[hidden] {
                 display: none;
             }
+            .submit {
+                margin-right: 8px;
+            }
         </style>
 
         <div class="input-comment">
@@ -285,10 +285,10 @@ class KwcSocialComments extends PolymerElement {
             <form class="comment-form" on-submit="_submitComment">
                 <input id="comment-input" class="comment-box" type="text" placeholder$="[[_placeholderText]]" value="{{_comment::input}}" disabled$="[[posting]]" on-focus="_toggleFormControls" on-keydown="_dialogKeydown">
                 <div class="comment-form-actions">
-                    <button class="btn tertiary small" type="submit" on-tap="_submitComment" disabled="[[!_commentValid]]">
+                    <button class="btn submit" type="submit" on-tap="_submitComment" disabled="[[!_commentValid]]">
                         Submit
                     </button>
-                    <button class="btn transparent black" on-tap="_cancelComment">
+                    <button class="btn secondary" on-tap="_cancelComment">
                         Cancel
                     </button>
                 </div>
@@ -326,13 +326,13 @@ class KwcSocialComments extends PolymerElement {
                             <div class="icon">${flag}</div>
                         </button>
                     </div>
-                    <button id="retry" class="btn transparent primary" on-tap="_retryButtonTapped" hidden$="[[!comment.error]]" type="warning">
+                    <button id="retry" class="btn secondary s" on-tap="_retryButtonTapped" hidden$="[[!comment.error]]" type="warning">
                         retry
                     </button>
                 </div>
             </div>
         </template>
-        <button class="btn primary loader" id="loader" type="secondary" on-tap="_loadMoreData">
+        <button class="btn secondary loader" id="loader" type="secondary" on-tap="_loadMoreData">
             Load more
         </button>
     `;
