@@ -49,8 +49,8 @@ export const share = {
     date_created: '2017-07-05T14:27:19.257Z',
     attachments: {
         cover_url: 'https://s3-eu-west-1.amazonaws.com/world.kano.me.staging/share-items/covers/595cf747bf1189649f1bdd57.png',
-        attachment_url: 'https://s3-eu-west-1.amazonaws.com/world.kano.me.staging/share-items/attachments/595cf747bf1189649f1bdd57.draw',
     },
+    attachment_url: 'https://s3-eu-west-1.amazonaws.com/world.kano.me.staging/share-items/attachments/595cf747bf1189649f1bdd57.draw',
     featured: true,
     views_count: 123,
     cover_url: 'https://s3-eu-west-1.amazonaws.com/world.kano.me.staging/share-items/covers/595cf747bf1189649f1bdd57.png',

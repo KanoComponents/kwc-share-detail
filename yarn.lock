@@ -218,25 +218,25 @@
     "@polymer/iron-selector" "^3.0.0-pre.21"
     "@polymer/polymer" "^3.0.0"
 
-"@kano/kwc-share-card@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@kano/kwc-share-card/-/kwc-share-card-3.0.3.tgz#e9575723043f0ff6626022fac0cf576e422682af"
-  integrity sha512-1fuZBBYqsAFcNFnFDmpcR5nCe54s90/ulXHkQdoDMmiysFDMxrWxKfJH18zUd94zZ19+nHF3L5FdBw4zwp8POg==
+"@kano/kwc-share-card@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@kano/kwc-share-card/-/kwc-share-card-3.0.4.tgz#cf75db55dc2f57481871d07fc1a0e590e12921cb"
+  integrity sha512-KsPTjjvrZlp+UWIWIPEvQ4NKVBxBbhAvISL6eDacVzt9WGchtNfAHCPpPhufRWCkWB5OHCa9fEsup2Z/1YOYQw==
   dependencies:
     "@kano/kwc-lightboard-preview" "3.0.0"
-    "@kano/styles" "^1.0.0-alpha.0"
+    "@kano/styles" "^1.0.0"
     "@polymer/iron-image" "^3.0.1"
     "@polymer/paper-spinner" "^3.0.1"
     "@polymer/polymer" "^3.0.0"
 
-"@kano/kwc-share-player@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@kano/kwc-share-player/-/kwc-share-player-3.0.1.tgz#aecb4c9fa4a9dcaade46cdbd5c39d0ff13b2a321"
-  integrity sha512-y9gfYdjMmbUN/oK+TIzXtHtCw2868udybu/qMHUfTtAPbL1Fzu56x2+oPJgKCWBBBDRSMwIGldSBFmFyUcONGQ==
+"@kano/kwc-share-player@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@kano/kwc-share-player/-/kwc-share-player-3.0.2.tgz#560c42496582d36d2fa4c70c96532025aac86e4c"
+  integrity sha512-POTfPu4jqz/WE1RNFKupBul2fM0ToPvy1mhDd7KlRLXRMr1UJRc23wqwG3QFOTDOMLENKXIdw8hi4Gcat7L/EQ==
   dependencies:
     "@kano/code" "git+ssh://git@github.com:KanoComputing/code.git#^1.0.0-alpha.122"
     "@kano/icons" "^0.0.1-alpha.3"
-    "@kano/styles" "^1.0.0-alpha.0"
+    "@kano/styles" "^1.0.0"
     "@polymer/iron-image" "^3.0.0-pre.18"
     "@polymer/iron-signals" "^3.0.0-pre.6"
     "@polymer/marked-element" "^3.0.0-pre.18"
@@ -258,10 +258,10 @@
     "@polymer/polymer" "^3.0.0"
     sortablejs "^1.7.0"
 
-"@kano/styles@^1.0.0-alpha.0":
-  version "1.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@kano/styles/-/styles-1.0.0-alpha.0.tgz#cce594e4938c5bcf49115f6da1b057bce0505c13"
-  integrity sha512-/YYry6/l/Z/tfNAoG2ZkWfnIftLkR/qCG7HRTKXGw8GvZAamRANauEbSFUjpTPX8dKoe7xIfRCP2ZNffswZFLw==
+"@kano/styles@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@kano/styles/-/styles-1.0.0.tgz#f7d0ef9338dcc73c72851dc931c79eefd3db9bbf"
+  integrity sha512-Iu9vr3mY3SEZYUjvDNSpPiuvEfF4TbGJAEPkmGTYJ9xATlDDTvZCsogCBkr19LLbzvTGzREXKQgNpFySX4kf9g==
 
 "@kano/telemetry@^1.0.0":
   version "1.0.2"

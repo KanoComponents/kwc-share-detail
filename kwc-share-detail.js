@@ -11,16 +11,16 @@ import '@polymer/iron-image/iron-image.js';
 import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/paper-spinner/paper-spinner-lite.js';
 import '@kano/kwc-share-player/kwc-share-player.js';
-import '@kano/kwc-share-card/kwc-share-action.js';
 import '@kano/kwc-share-card/kwc-share-cover.js';
 import '@kano/kwc-drop-down/kwc-drop-down.js';
 import '@kano/kwc-drop-down/kwc-drop-down-item.js';
 import '@kano/styles/typography.js';
 import '@kano/styles/color.js';
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { ellipsis, like } from '@kano/icons/ui.js';
-import { facebook, twitter, share } from '@kano/icons/social.js';
+import { ellipsis, like, remix } from '@kano/icons/ui.js';
+import { facebook, twitter, share, code } from '@kano/icons/social.js';
 import * as partIcons from '@kano/icons/parts.js';
+import button from '@kano/styles/button.js';
 import { assets } from './assets.js';
 
 import './kwc-social-comments.js';
@@ -28,6 +28,7 @@ import './kwc-social-comments.js';
 class KwcShareDetail extends PolymerElement {
     static get template() {
         return html`
+        ${button}
         <style>
             @keyframes fade-in {
                 from {
@@ -205,20 +206,21 @@ class KwcShareDetail extends PolymerElement {
                 width: 100%;
             }
             .actions {
+                position: relative;
                 @apply --layout-horizontal;
                 @apply --layout-start-justified;
                 @apply --layout-wrap;
                 margin-top: 5px;
             }
-            .actions kwc-share-action {
+            .actions .btn.action {
                 margin: 5px 0px;
                 margin-right: 10px;
                 position: relative;
             }
-            .actions kwc-share-action:last-child {
+            .actions .btn.action:last-child {
                 margin-right: 0px;
             }
-            .actions kwc-share-action paper-spinner-lite {
+            .actions .btn.action paper-spinner-lite {
                 height: 18px;
                 width: 18px;
                 position: absolute;
@@ -226,18 +228,14 @@ class KwcShareDetail extends PolymerElement {
                 display: block;
                 margin: auto;
             }
-            kwc-share-action.like {
-                --kwc-share-action-icon-hover-color: var(--color-carnation);
-                --kwc-share-action-wrapper-active-color: var(--color-carnation);
-                --kwc-share-action-wrapper-active-hover-color: var(--color-carnation);
-                --kwc-share-action-label-active-color: #fff;
-                --kwc-share-action-icon-active-color: #fff;
+            .btn.action.like {
+                --button-action-highlight: var(--color-carnation);
             }
-            kwc-share-action.remix {
-                --kwc-share-action-icon-hover-color: var(--color-kano-orange);
+            .btn.action.remix {
+                --button-action-highlight: var(--color-kano-orange);
             }
-            kwc-share-action.view-code {
-                --kwc-share-action-icon-hover-color: var(--color-dodger-blue);
+            .btn.action.view-code {
+                --button-action-highlight: var(--color-dodger-blue);
             }
             #more-actions-button {
                 margin-left: auto;
@@ -247,14 +245,16 @@ class KwcShareDetail extends PolymerElement {
                 height: 21px;
                 overflow: hidden;
             }
-            #more-actions-button .ellipsis .icon {
+            #more-actions-button .ellipsis svg {
                 width: 30px;
                 height: 30px;
                 margin-top: -4px;
                 margin-left: -4px;
+                fill: var(--color-chateau);
             }
             #more-actions-menu {
-                transform: translate(-64px, 10px);
+                right: 0;
+                transform: translate(-109px, 34px);
             }
             #more-actions-menu kwc-drop-down-item {
                 min-width: 150px;
@@ -499,32 +499,32 @@ class KwcShareDetail extends PolymerElement {
                             <p class="description">[[shareData.description]]</p>
                             <div class="actions">
                             <template is="dom-if" if="[[!_sharedByUser]]">
-                                <kwc-share-action class="like" on-click="_onLikeTapped" active="[[liked]]">
-                                    <div class="icon" slot="icon">${like}</div>
-                                    [[_computedLikeButtonText(liked)]]
+                                <button class$="btn action like [[_computeClass(liked, 'active')]]" on-click="_onLikeTapped">
+                                    ${like}
+                                    <div>[[_computedLikeButtonText(liked)]]</div>
                                     <paper-spinner-lite active="[[submitingLike]]"></paper-spinner-lite>
-                                </kwc-share-action>
+                                </button>
                             </template>
                             <template is="dom-if" if="[[_showRemixButton(shareData, canRemix)]]">
-                                <kwc-share-action class="remix" icon="kwc-ui-icons:remix" on-click="_onRemixTapped">Remix</kwc-share-action>
+                                <button class="btn action remix" on-click="_onRemixTapped">${remix}<div>Remix</div></button>
                             </template>
                             <template is="dom-if" if="[[_showCodeButton(shareData)]]">
-                                <kwc-share-action class="view-code" icon-id="kwc-social-icons:code" on-click="_toggleCodeView">View&nbsp;code</kwc-share-action>
+                                <button class="btn action view-code" on-click="_toggleCodeView">${code}<div>View&nbsp;code</div></button>
                             </template>
-                            <kwc-share-action id="more-actions-button" on-click="_onMoreActionsTapped" active="[[dropDownOpened]]">
+                            <button class$="btn action [[_computeClass(dropDownOpened, 'active')]]" id="more-actions-button" on-click="_onMoreActionsTapped">
                                 <div class="ellipsis">
                                     <div class="icon">${ellipsis}</div>
                                 </div>
-                                <kwc-drop-down id="more-actions-menu" caret-position="center" opened="{{dropDownOpened}}">
-                                    <template is="dom-if" if="[[_showFeaturedButton(shareData, currentUser.admin_level)]]">
-                                        <kwc-drop-down-item class="feature" icon="kwc-ui-icons:rosette" on-click="_onFeatureTapped">[[_computeFeatureButtonText(featured)]]</kwc-drop-down-item>
-                                    </template>
-                                    <template is="dom-if" if="[[_displayMetaActions]]">
-                                        <kwc-drop-down-item class="delete" icon="kwc-ui-icons:rubbish-bin" on-click="_onDeleteTapped">Delete</kwc-drop-down-item>
-                                    </template>
-                                    <kwc-drop-down-item id="drop-down-flag" class$="flag no-margin [[_computeFlagStatus(flags.*)]]" icon="kwc-social-icons:flag" on-click="_onFlagTapped"></kwc-drop-down-item>
-                                </kwc-drop-down>
-                            </kwc-share-action>
+                            </button>
+                            <kwc-drop-down id="more-actions-menu" caret-position="center" opened="{{dropDownOpened}}">
+                                <template is="dom-if" if="[[_showFeaturedButton(shareData, currentUser.admin_level)]]">
+                                    <kwc-drop-down-item class="feature" icon="kwc-ui-icons:rosette" on-click="_onFeatureTapped">[[_computeFeatureButtonText(featured)]]</kwc-drop-down-item>
+                                </template>
+                                <template is="dom-if" if="[[_displayMetaActions]]">
+                                    <kwc-drop-down-item class="delete" icon="kwc-ui-icons:rubbish-bin" on-click="_onDeleteTapped">Delete</kwc-drop-down-item>
+                                </template>
+                                <kwc-drop-down-item id="drop-down-flag" class$="flag no-margin [[_computeFlagStatus(flags.*)]]" icon="kwc-social-icons:flag" on-click="_onFlagTapped"></kwc-drop-down-item>
+                            </kwc-drop-down>
                         </div>
                         <div class="stats">
                             <span hidden$="[[!likes.length]]">[[likes.length]] Likes</span>
@@ -867,6 +867,9 @@ class KwcShareDetail extends PolymerElement {
         return [
             '_shareDataChanged(shareData.*)',
         ];
+    }
+    _computeClass(value, className) {
+        return value ? className : '';
     }
     _getPartIcon(product) {
         // snake case to camelCase
