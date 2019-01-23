@@ -1,20 +1,3 @@
-# \<kwc-share-detail\>
+🚨Deprecated 🚨
 
-To display details specific to a kano code share.
-
-## kwc-share-detail
-
-## kwc-social-comments
-
-Lists a creation's comments and displays a form to publish a comment
-
-## Installation
-
-Clone this repository.
-Run `yarn`
-
-## Running Tests
-
-```
-yarn serve-test
-```
+This codebase is now part of the kano-components repository. You can find it here: https://github.com/KanoComputing/kano-components/tree/master/packages/s
